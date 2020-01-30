@@ -750,6 +750,7 @@
           }
         }
       ],
+      "GlobalSenders": 1,
       "Name": "LogEvent",
       "Guid": "010f4a6f-f158-45b4-a28e-a5e85b4ee04d",
       "Comment": "\t\t",
@@ -3350,6 +3351,23 @@
             "ExtrapolationMaxFrames": 9,
             "SnapMagnitude": 10.0
           }
+        },
+        {
+          "Name": "MyColor",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeColor, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",
+            "ExtrapolationErrorTolerance": 0.25,
+            "_ExtrapolationCorrectionFrames": 6,
+            "ExtrapolationMaxFrames": 9,
+            "SnapMagnitude": 10.0
+          }
         }
       ],
       "PacketMaxBits": 512,
@@ -3421,6 +3439,15 @@
       },
       "Name": "MyPlayerState",
       "Guid": "046766ba-b872-4d96-82b1-51e2be1e283e",
+      "Groups": [
+        "samples"
+      ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [],
+      "Name": "MyCustomEvent",
+      "Guid": "e6c97017-02e3-4609-81ff-9c25bb88ee6c",
       "Groups": [
         "samples"
       ]
