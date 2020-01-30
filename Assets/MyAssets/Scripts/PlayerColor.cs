@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerColor : Bolt.EntityBehaviour<IMyPlayerState>
+public class PlayerColor : Bolt.EntityEventListener<IMyPlayerState>
 {
 
     [SerializeField] MeshRenderer meshRenderer;
@@ -13,9 +13,19 @@ public class PlayerColor : Bolt.EntityBehaviour<IMyPlayerState>
 
         if (entity.IsOwner)
         {
-            state.MyColor = new Color(Random.value, Random.value, Random.value);
+            state.MyColor = makeRandomColor();
         }
 
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown("f"))
+        {
+            //var myCustomEvent = MyCustomEvent.Create(entity);
+            //myCustomEvent.Send();
+            state.MyColor = makeRandomColor();
+        }
     }
 
     void ColorChanged()
@@ -23,4 +33,15 @@ public class PlayerColor : Bolt.EntityBehaviour<IMyPlayerState>
         meshRenderer.material.color = state.MyColor;
     }
 
+    /*
+    public override void OnEvent(MyCustomEvent evnt)
+    {
+        state.MyColor = makeRandomColor();
+    }
+    */
+
+    Color makeRandomColor()
+    {
+        return new Color(Random.value, Random.value, Random.value);
+    }
 }

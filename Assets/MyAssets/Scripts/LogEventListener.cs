@@ -18,9 +18,4 @@ public class LogEventListener : Bolt.GlobalEventListener
     {
         Destroy(Camera.main.gameObject);
     }
-
-    public override void OnEvent(MyCustomEvent evnt)
-    {
-        // you can make your events, create and listen to them.
-    }
 }
