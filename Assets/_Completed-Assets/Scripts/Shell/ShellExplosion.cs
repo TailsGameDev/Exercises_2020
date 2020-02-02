@@ -11,7 +11,7 @@ namespace Complete
         public float m_ExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
         public float m_MaxLifeTime = 2f;                    // The time in seconds before the shell is removed.
         public float m_ExplosionRadius = 5f;                // The maximum distance away from the explosion tanks can be and are still affected.
-
+        bool AlreadyHit = false;
 
         private void Start ()
         {
@@ -22,6 +22,8 @@ namespace Complete
 
         private void OnTriggerEnter (Collider other)
         {
+            if (AlreadyHit) return;
+
 			// Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
             Collider[] colliders = Physics.OverlapSphere (transform.position, m_ExplosionRadius, m_TankMask);
 
@@ -66,9 +68,18 @@ namespace Complete
             Destroy (m_ExplosionParticles.gameObject, mainModule.duration);
 
             // Destroy the shell.
-            Destroy (gameObject);
+            Invoke("Destroise", 1f);
+
+            //fake destroy local.
+            AlreadyHit = true;
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<Light>().enabled = false;
         }
 
+        void Destroise()
+        {
+            Destroy(gameObject);
+        }
 
         private float CalculateDamage (Vector3 targetPosition)
         {

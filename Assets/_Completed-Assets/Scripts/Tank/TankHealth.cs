@@ -42,10 +42,12 @@ namespace Complete
             SetHealthUI();
         }
 
+        /*
         public override void Attached()
         {
             state.health = m_CurrentHealth;
         }
+        */
 
         public void TakeDamage (float amount)
         {
@@ -55,7 +57,7 @@ namespace Complete
             // Change the UI elements appropriately.
             SetHealthUI ();
 
-            state.health = m_CurrentHealth;
+            //state.health = m_CurrentHealth;
 
             // If the current health is at or below zero and it has not yet been registered, call OnDeath.
             if (m_CurrentHealth <= 0f && !m_Dead)
@@ -64,6 +66,7 @@ namespace Complete
             }
         }
 
+        /*
         private void Update()
         {
             if (Mathf.Abs( state.health - m_CurrentHealth) > 0.2f)
@@ -72,6 +75,7 @@ namespace Complete
                 SetHealthUI();
             }
         }
+        */
 
         private void SetHealthUI ()
         {

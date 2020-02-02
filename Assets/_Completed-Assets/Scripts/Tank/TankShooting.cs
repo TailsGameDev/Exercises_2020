@@ -21,7 +21,7 @@ namespace Complete
         private string m_FireButton = "Fire1";      // The input axis that is used for launching shells.
         private float m_CurrentLaunchForce;         // The force that will be given to the shell when the fire button is released.
         private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
-        bool releaseShoot = false;
+        bool shooting = false;
 
         private void OnEnable()
         {
@@ -39,26 +39,28 @@ namespace Complete
 
         public void ChargeShoot()
         {
-            StartCoroutine(Shoot());
+            if (!shooting)
+            {
+                StartCoroutine(Shoot());
+            }
         }
 
         public void ReleaseShoot()
         {
-            releaseShoot = true;
+            shooting = false;
         }
 
         IEnumerator Shoot()
         {
+            shooting = true;
             // inicialize charge
             m_CurrentLaunchForce = m_MinLaunchForce;
-
-            releaseShoot = false;
 
             m_ShootingAudio.clip = m_ChargingClip;
             m_ShootingAudio.Play();
             
             // charge loop
-            while( !releaseShoot && (m_CurrentLaunchForce < m_MaxLaunchForce))
+            while( shooting && (m_CurrentLaunchForce < m_MaxLaunchForce))
             {
                 m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
 
@@ -66,6 +68,8 @@ namespace Complete
 
                 yield return null;
             }
+
+            shooting = false;
 
             //Fire and end
             m_CurrentLaunchForce = Mathf.Min(m_CurrentLaunchForce, m_MaxLaunchForce);
