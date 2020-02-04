@@ -31,6 +31,11 @@ namespace Complete
             m_ExplosionParticles.gameObject.SetActive (false);
         }
 
+        public bool IsDead()
+        {
+            return m_Dead;
+        }
+
         public void HealTankAndUpdateUI()
         {
             m_CurrentHealth = m_StartingHealth;
@@ -82,7 +87,8 @@ namespace Complete
             m_ExplosionAudio.Play();
 
             // Turn the tank off.
-            gameObject.SetActive (false);
+            //gameObject.SetActive (false);
+            transform.position = new Vector3(0, -5f, 0);
         }
     }
 }

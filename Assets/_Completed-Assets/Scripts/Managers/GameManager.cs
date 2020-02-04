@@ -30,6 +30,7 @@ namespace Complete
         {
             ConfigureSingleton();
             ConfigureDelays();
+            gameWinner = CreateSentinelPlayer();
         }
 
         void ConfigureSingleton()
@@ -66,12 +67,16 @@ namespace Complete
             }
         }
 
-        // set the targets to the transform of each tank in the array
         private void SetCameraTargets()
         {
-            //'Select' method gets the transform of each tank.
-            cameraControl.m_Targets = (Transform[])
-                tankManagers.Select(tankManager => tankManager.GetTankTransform());
+            Transform[] transforms = new Transform[tankManagers.Length];
+
+            for (int i = 0; i < tankManagers.Length; i++)
+            {
+                transforms[i] = tankManagers[i].GetTankTransform();
+            }
+
+            cameraControl.m_Targets = transforms;
         }
 
 
@@ -154,16 +159,15 @@ namespace Complete
 
         private bool MoreThanOneTankAlive()
         {
-            int numTanksLeft = 0;
+            int numTanksAlive = tankManagers.Length;
 
             for (int i = 0; i < tankManagers.Length; i++)
             {
-                // TODO: do not disable tanks when they die!!
-                if (tankManagers[i].m_Instance.activeSelf)
-                    numTanksLeft++;
+                if (tankManagers[i].IsDead())
+                    numTanksAlive--;
             }
 
-            return numTanksLeft > 1;
+            return numTanksAlive > 1;
         }
 
         private IEnumerator RoundEnding()
@@ -180,16 +184,16 @@ namespace Complete
             yield return endDelay;
         }
 
-        // This function is called with the assumption that 1 or fewer tanks are currently active.
+        // This function is called with the assumption that 1 or fewer tanks are currently alive.
         private TankManager GetRoundWinner()
         {
             for (int i = 0; i < tankManagers.Length; i++)
             {
-                if (tankManagers[i].m_Instance.activeSelf)
+                if ( ! tankManagers[i].IsDead() )
                     return tankManagers[i];
             }
 
-            return GetSentinelPlayer();
+            return CreateSentinelPlayer();
         }
 
         private TankManager GetGameWinner()
@@ -200,10 +204,10 @@ namespace Complete
                     return tankManagers[i];
             }
 
-            return GetSentinelPlayer();
+            return CreateSentinelPlayer();
         }
 
-        TankManager GetSentinelPlayer()
+        TankManager CreateSentinelPlayer()
         {
             TankManager sentinelPlayer = new TankManager();
             sentinelPlayer.m_ColoredPlayerText = coloredSentinelPlayerText;

@@ -26,6 +26,10 @@ namespace Complete
         // Used to disable the world space UI during the Starting and Ending phases of each round.
         private GameObject m_CanvasGameObject;
 
+        public bool IsDead()
+        {
+            return tankHealth.IsDead();
+        }
 
         public void FullSetupWithTankAndItsNumber (GameObject tankGameObject, int tankNumber)
         {
