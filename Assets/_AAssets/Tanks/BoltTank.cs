@@ -10,6 +10,11 @@ public class BoltTank : Bolt.EntityBehaviour<ITank>
     [SerializeField] TankAudio tankAudio;
     [SerializeField] Complete.TankShooting tankShooting;
 
+    public float GetTimeSinceJoined()
+    {
+        return state.timeSinceJoined;
+    }
+
     public override void Attached()
     {
         state.SetTransforms(state.transform, tankTransform);
@@ -29,6 +34,8 @@ public class BoltTank : Bolt.EntityBehaviour<ITank>
 
     public override void SimulateOwner()
     {
+        state.timeSinceJoined += BoltNetwork.FrameDeltaTime;
+
         ManageMovement();
 
         ManageShoot();

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 namespace Complete
 {
@@ -61,6 +62,17 @@ namespace Complete
         public void UpdateTankManagers()
         {
             GameObject[] tanks = GameObject.FindGameObjectsWithTag("tank");
+            
+            //sort the two tanks
+            if(tanks[0].GetComponent<BoltTank>().GetTimeSinceJoined() >
+                tanks[1].GetComponent<BoltTank>().GetTimeSinceJoined())
+            {
+                GameObject aux = tanks[0];
+                tanks[0] = tanks[1];
+                tanks[1] = aux;
+            }
+                
+
             for (int i = 0; i < tanks.Length; i++)
             {
                 tankManagers[i].FullSetupWithTankAndItsNumber(tanks[i], i+1);
