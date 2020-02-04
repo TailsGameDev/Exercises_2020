@@ -3767,8 +3767,8 @@
     {
       "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
       "Properties": [],
-      "Name": "Damage",
-      "Guid": "dd09005d-57c3-49d8-90bf-609ae09d8eb6",
+      "Name": "NewPlayer",
+      "Guid": "193a7ec5-0fa7-42b5-a9de-c2539e62b77c",
       "Groups": [
         "samples"
       ]

@@ -15,4 +15,14 @@ public class TankInstantiator : Bolt.GlobalEventListener
 
         BoltNetwork.Instantiate(BoltPrefabs.BoltTank, spawnPosition, Quaternion.identity);
     }
+
+    public override void OnEvent(NewPlayer evnt)
+    {
+        GameObject[] tanks = GameObject.FindGameObjectsWithTag("tank");
+
+        if (tanks.Length > 1)
+        {
+            Complete.GameManager.instance.Begin();
+        }
+    }
 }

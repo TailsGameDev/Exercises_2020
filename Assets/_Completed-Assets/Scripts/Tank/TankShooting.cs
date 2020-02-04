@@ -23,9 +23,8 @@ namespace Complete
         private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
         bool shooting = false;
 
-        private void OnEnable()
+        public void ResetLaunchForceAndUI()
         {
-            // When the tank is turned on, reset the launch force and the UI
             m_CurrentLaunchForce = m_MinLaunchForce;
             m_AimSlider.value = m_MinLaunchForce;
         }

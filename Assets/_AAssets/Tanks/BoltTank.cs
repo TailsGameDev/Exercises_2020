@@ -13,6 +13,18 @@ public class BoltTank : Bolt.EntityBehaviour<ITank>
     public override void Attached()
     {
         state.SetTransforms(state.transform, tankTransform);
+
+        if (entity.IsOwner)
+        {
+            Invoke("NotifyEveryoneAboutNewPlayer", 3f);
+        }
+        
+    }
+
+    void NotifyEveryoneAboutNewPlayer()
+    {
+        var newPlayer = NewPlayer.Create();
+        newPlayer.Send();
     }
 
     public override void SimulateOwner()
