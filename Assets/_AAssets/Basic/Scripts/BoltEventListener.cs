@@ -6,13 +6,20 @@ using UdpKit;
 
 public class BoltEventListener : Bolt.GlobalEventListener
 {
+    public string sessionID;
     [SerializeField] string gameScene;
+
+    public void SetSessionID(string id)
+    {
+        sessionID = id;
+    }
 
     public override void BoltStartDone()
     {
         if (BoltNetwork.IsServer)
         {
-            string matchName = Guid.NewGuid().ToString();
+            string matchName = //Guid.NewGuid().ToString();
+                                sessionID;
 
             Bolt.Matchmaking.BoltMatchmaking.CreateSession(
                 sessionID: matchName,
@@ -29,7 +36,11 @@ public class BoltEventListener : Bolt.GlobalEventListener
 
             if (photonSession.Source == UdpSessionSource.Photon)
             {
-                BoltNetwork.Connect(photonSession);
+                if (photonSession.HostName.ToString() == sessionID)
+                {
+                    Debug.LogError(photonSession.HostName.ToString() + "<- id");
+                    BoltNetwork.Connect(photonSession);
+                }
             }
         }
     }
