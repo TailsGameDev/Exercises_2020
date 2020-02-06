@@ -11,7 +11,7 @@ public class TankInstantiator : Bolt.GlobalEventListener
 
     void InstantiatePlayer()
     {
-        var spawnPosition = new Vector3(Random.Range(-16, 16), 0, Random.Range(-16, 16));
+        var spawnPosition = new Vector3(Random.Range(-6, 6), 0, Random.Range(0, 2));
 
         BoltNetwork.Instantiate(BoltPrefabs.BoltTank, spawnPosition, Quaternion.identity);
     }
